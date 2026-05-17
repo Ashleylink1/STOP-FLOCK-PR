@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STOP FLOCK PR — Mass Surveillance / Vigilancia Masiva</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Barlow:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--red:#e8000a;--deep-red:#8c0006;--black:#070707;--ink:#111;--panel:#141414;--border:#222;--off-white:#f0ebe0;--muted:#8a8070;--flock:#e8a000;--tower:#0088e8}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;background:var(--black);color:var(--off-white);overflow-x:hidden}
+.en{display:block}.es{display:none}
+body.spanish .en{display:none}body.spanish .es{display:block}
+span.en,span.es{display:inline}body.spanish span.en{display:none}body.spanish span.es{display:inline}
+#topbar{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(7,7,7,.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:48px;backdrop-filter:blur(10px)}
+.topbar-brand{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em}
+.topbar-brand em{color:var(--red);font-style:normal}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.lang-btn{background:none;border:1px solid #333;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:5px 13px;cursor:pointer;transition:all .15s}
+.lang-btn.on,.lang-btn:hover{background:var(--red);border-color:var(--red);color:#fff}
+.topbar-sign{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:var(--red);color:#fff;border:none;padding:9px 20px;cursor:pointer;text-decoration:none;display:inline-block;transition:background .15s}
+.topbar-sign:hover{background:#c8000a}
+#sitenav{position:fixed;top:48px;left:0;right:0;z-index:998;background:rgba(7,7,7,.95);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none;backdrop-filter:blur(8px)}
+#sitenav::-webkit-scrollbar{display:none}
+.nav-a{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:11px 20px;white-space:nowrap;border-right:1px solid var(--border);transition:color .15s,background .15s}
+.nav-a:hover{color:var(--off-white);background:#161616}
+#ticker{margin-top:88px;background:var(--red);overflow:hidden;height:36px;display:flex;align-items:center}
+.ticker-track{display:flex;animation:tickerScroll 30s linear infinite;white-space:nowrap}
+.ticker-item{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#fff;padding:0 36px}
+.ticker-sep{color:rgba(255,255,255,.4);padding:0 8px}
+@keyframes tickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+#hero{min-height:calc(100vh - 124px);display:flex;flex-direction:column;justify-content:flex-end;padding:60px 6vw 64px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(232,0,10,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(232,0,10,.03) 1px,transparent 1px);background-size:64px 64px;animation:gridDrift 24s linear infinite}
+@keyframes gridDrift{from{background-position:0 0}to{background-position:64px 64px}}
+.hero-scan{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent);animation:scanDown 5s ease-in-out infinite;opacity:.5}
+@keyframes scanDown{0%{top:-2px;opacity:0}5%{opacity:.5}95%{opacity:.5}100%{top:100%;opacity:0}}
+.hero-over{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--red);margin-bottom:18px;opacity:0;animation:fadeUp .7s .2s forwards}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(80px,18vw,240px);line-height:.86;letter-spacing:-.01em;opacity:0;animation:fadeUp .9s .4s forwards}
+.hero-h1 .red{color:var(--red)}
+.hero-sub{max-width:640px;margin-top:28px;font-size:clamp(15px,1.8vw,19px);line-height:1.75;color:var(--muted);opacity:0;animation:fadeUp .9s .6s forwards}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px;opacity:0;animation:fadeUp .9s .8s forwards}
+.btn-red{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--red);color:#fff;border:none;padding:17px 40px;cursor:pointer;text-decoration:none;display:inline-block;transition:background .15s,transform .1s}
+.btn-red:hover{background:#c8000a}.btn-red:active{transform:scale(.98)}
+.btn-ghost{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:none;color:var(--off-white);border:1px solid #444;padding:17px 40px;cursor:pointer;text-decoration:none;display:inline-block;transition:all .15s}
+.btn-ghost:hover{border-color:var(--off-white)}
+.hero-stats{display:flex;gap:40px;flex-wrap:wrap;margin-top:52px;padding-top:40px;border-top:1px solid var(--border);opacity:0;animation:fadeUp .9s 1s forwards}
+.hstat{border-left:3px solid var(--red);padding-left:16px}
+.hstat-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,72px);line-height:1}
+.hstat-l{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.section{padding:80px 6vw;border-top:1px solid var(--border)}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.38em;text-transform:uppercase;color:var(--red);margin-bottom:14px;display:block}
+.sec-h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,7vw,90px);line-height:.92;margin-bottom:28px}
+.sec-body{font-size:clamp(14px,1.5vw,16px);line-height:1.85;color:var(--muted);max-width:700px;margin-bottom:18px}
+/* PETITION */
+#petition{background:#07000a;border-top:3px solid var(--red)}
+.petition-layout{display:grid;grid-template-columns:1fr 400px;gap:60px;align-items:start;margin-top:40px}
+@media(max-width:900px){.petition-layout{grid-template-columns:1fr}}
+.demand-item{display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--border)}
+.demand-n{font-family:'Bebas Neue',sans-serif;font-size:42px;color:#2a1010;line-height:1;flex-shrink:0;width:40px}
+.demand-txt{font-size:clamp(14px,1.5vw,15px);line-height:1.65;color:var(--muted);padding-top:8px}
+.demand-txt strong{color:var(--off-white);display:block;margin-bottom:4px;font-family:'Barlow Condensed',sans-serif;font-size:clamp(14px,1.6vw,16px);letter-spacing:.04em;text-transform:uppercase;font-weight:700}
+.petition-form-box{background:var(--panel);padding:36px 28px;position:sticky;top:104px}
+.pform-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.04em;margin-bottom:6px;color:var(--red)}
+.pform-sub{font-size:12px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+.fld{margin-bottom:14px}
+.fld label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#555;margin-bottom:7px}
+.fld input,.fld select,.fld textarea{width:100%;background:#0d0d0d;border:1px solid var(--border);color:var(--off-white);font-family:'Barlow',sans-serif;font-size:14px;padding:12px 13px;outline:none;transition:border-color .15s;border-radius:0;-webkit-appearance:none}
+.fld select option{background:#111}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--red)}
+.fld textarea{resize:vertical;min-height:70px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:500px){.frow{grid-template-columns:1fr}}
+.sign-btn{width:100%;background:var(--red);color:#fff;border:none;font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.08em;padding:18px;cursor:pointer;margin-top:8px;transition:background .15s}
+.sign-btn:hover{background:#c8000a}
+.sig-count-box{text-align:center;margin-top:16px;padding:16px;border:1px solid var(--border);background:#0d0d0d}
+.sig-num{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--red);line-height:1}
+.sig-lbl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#555;margin-top:3px}
+.signed-state{display:none;text-align:center;padding:28px 16px}
+.signed-state.show{display:block}
+.signed-big{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--off-white);margin-bottom:8px}
+.signed-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.share-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.sh-btn{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:9px 16px;border:1px solid #333;background:none;color:var(--off-white);cursor:pointer;text-decoration:none;display:inline-block;transition:all .15s}
+.sh-btn:hover{background:var(--red);border-color:var(--red)}
+/* CAMERAS */
+#cameras{background:var(--ink)}
+.cam-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:48px}
+@media(max-width:700px){.cam-grid{grid-template-columns:1fr}}
+.cam-card{background:var(--panel);padding:40px 32px;position:relative;overflow:hidden}
+.cam-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.cam-card.flock::before{background:var(--flock)}.cam-card.tower::before{background:var(--tower)}
+.cam-icon-wrap{height:160px;display:flex;align-items:center;justify-content:center;background:var(--black);margin-bottom:28px}
+.cam-badge{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;padding:4px 13px;margin-bottom:16px}
+.cam-card.flock .cam-badge{background:var(--flock);color:#000}
+.cam-card.tower .cam-badge{background:var(--tower);color:#fff}
+.cam-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,4vw,48px);margin-bottom:6px}
+.cam-aka{font-size:13px;color:var(--muted);font-style:italic;margin-bottom:18px}
+.cam-desc{font-size:14px;line-height:1.75;color:var(--muted);margin-bottom:24px}
+.cam-feats{list-style:none}
+.cam-feats li{font-size:13px;color:var(--muted);padding:10px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start;line-height:1.55}
+.cam-feats li::before{content:'&#9658;';flex-shrink:0;margin-top:1px}
+.cam-card.flock .cam-feats li::before{color:var(--flock)}
+.cam-card.tower .cam-feats li::before{color:var(--tower)}
+.cam-feats li strong{color:var(--off-white);font-weight:600}
+.cam-warn{margin-top:20px;padding:14px 16px;font-size:13px;line-height:1.6;font-weight:600}
+.cam-card.flock .cam-warn{background:#1a1200;color:var(--flock);border-left:3px solid var(--flock)}
+.cam-card.tower .cam-warn{background:#00101a;color:var(--tower);border-left:3px solid var(--tower)}
+.cam-combined{background:var(--panel);border:1px solid var(--red);padding:36px 32px;margin-top:3px}
+.cam-combined-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,34px);color:var(--red);margin-bottom:12px}
+.cam-combined-b{font-size:14px;line-height:1.8;color:var(--muted);max-width:900px}
+/* FEDERAL */
+#federal{background:var(--black)}
+.fed-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;margin-top:36px}
+.fed-card{background:var(--panel);padding:28px 24px}
+.fed-agency{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--red);margin-bottom:8px}
+.fed-desc{font-size:13px;line-height:1.65;color:var(--muted)}
+/* CONFLICT */
+#conflict{background:var(--ink)}
+.conflict-box{border-left:4px solid var(--red);padding:32px 28px;background:#0f0a0a;margin:32px 0;max-width:780px}
+.conflict-box p{font-size:clamp(14px,1.5vw,15px);line-height:1.85;color:var(--muted);margin-bottom:16px}
+.conflict-box p:last-child{margin-bottom:0}
+.conflict-box strong{color:var(--off-white)}
+/* DEFLOCK */
+#deflock{background:#070a07}
+.report-tabs{display:flex;gap:2px;margin-bottom:32px;flex-wrap:wrap}
+.rtab{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:12px 28px;cursor:pointer;border:none;transition:all .15s;background:var(--panel);color:var(--muted)}
+.rtab.flock.on{background:var(--flock);color:#000}.rtab.tower.on{background:var(--tower);color:#fff}
+.rform{display:none;max-width:720px}.rform.on{display:block}
+.rform-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;margin-bottom:6px}
+.rform-sub{font-size:13px;color:var(--muted);margin-bottom:28px;line-height:1.6}
+.rf{margin-bottom:16px}
+.rf label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#555;margin-bottom:7px}
+.rf input,.rf select,.rf textarea{width:100%;background:var(--panel);border:1px solid var(--border);color:var(--off-white);font-family:'Barlow',sans-serif;font-size:14px;padding:12px 13px;outline:none;transition:border-color .15s;border-radius:0;-webkit-appearance:none}
+.rf select option{background:#111}.rf input:focus,.rf select:focus,.rf textarea:focus{border-color:var(--red)}
+.rf textarea{resize:vertical;min-height:80px}
+.rrow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:540px){.rrow{grid-template-columns:1fr}}
+.submit-red{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.08em;padding:15px 36px;border:none;background:var(--red);color:#fff;cursor:pointer;margin-top:8px;transition:background .15s}
+.submit-red:hover{background:#c8000a}
+.report-ok{display:none;background:var(--panel);border-left:4px solid #00c850;padding:20px 24px;margin-top:20px;font-size:14px;color:#00c850}
+.report-ok.show{display:block}
+/* TEMPLATE */
+#template{background:var(--black)}
+.tmpl-controls{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:36px}
+.tmpl-sw{flex:1;min-width:200px}
+.tmpl-sw label,.tmpl-lw label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#555;margin-bottom:7px}
+.tmpl-sw select{width:100%;background:var(--panel);border:1px solid var(--border);color:var(--off-white);font-family:'Barlow',sans-serif;font-size:15px;padding:13px 14px;outline:none;border-radius:0;-webkit-appearance:none;cursor:pointer;transition:border-color .15s}
+.tmpl-sw select:focus{border-color:var(--red)}
+.tlbtn-row{display:flex;gap:2px}
+.tlbtn{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:13px 22px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;transition:all .15s}
+.tlbtn.on,.tlbtn:hover{background:var(--red);border-color:var(--red);color:#fff}
+.tmpl-out{background:var(--panel);border:1px solid var(--border);padding:36px;font-size:13px;line-height:1.85;color:var(--muted);white-space:pre-wrap;font-family:'Barlow',sans-serif;max-height:520px;overflow-y:auto;margin-bottom:16px}
+.tmpl-btns{display:flex;gap:10px;flex-wrap:wrap}
+.tmpl-btn{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:13px 28px;border:1px solid #444;background:none;color:var(--off-white);cursor:pointer;transition:all .15s}
+.tmpl-btn:hover{background:var(--red);border-color:var(--red)}
+/* SOURCES */
+#sources{background:var(--ink)}
+.src-list{list-style:none;margin-top:28px}
+.src-item{display:flex;gap:18px;padding:16px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.src-n{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--red);min-width:24px;flex-shrink:0}
+.src-txt{font-size:13px;color:var(--muted);line-height:1.65}
+.src-txt a{color:#555;font-size:11px;display:block;margin-top:4px;word-break:break-all;transition:color .15s}
+.src-txt a:hover{color:var(--red)}
+footer{background:var(--black);padding:40px 6vw;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);flex-wrap:wrap;gap:16px}
+.footer-brand{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em}
+.footer-brand em{color:var(--red);font-style:normal}
+.footer-note{font-size:12px;color:#555;max-width:500px;line-height:1.6}
+.footer-hash{font-size:12px;color:#444;letter-spacing:.1em}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){#hero{padding:40px 5vw 48px}.section{padding:60px 5vw}.petition-form-box{position:static}}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div class="topbar-brand"><em>STOP</em> FLOCK PR</div>
+  <div class="topbar-right">
+    <button class="lang-btn on" id="btnEN" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btnES" onclick="setLang('es')">ES</button>
+    <a href="#petition" class="topbar-sign">
+      <span class="en">Sign Petition</span><span class="es">Firma la Petición</span>
+    </a>
+  </div>
+</div>
+
+<nav id="sitenav">
+  <a href="#petition" class="nav-a"><span class="en">✊ Petition</span><span class="es">✊ Petición</span></a>
+  <a href="#cameras" class="nav-a"><span class="en">📷 Know Your Cameras</span><span class="es">📷 Conoce las Cámaras</span></a>
+  <a href="#federal" class="nav-a"><span class="en">🏛 Federal Links</span><span class="es">🏛 Vínculos Federales</span></a>
+  <a href="#conflict" class="nav-a"><span class="en">⚠ Conflict of Interest</span><span class="es">⚠ Conflicto de Interés</span></a>
+  <a href="#deflock" class="nav-a"><span class="en">📍 DeFlock PR</span><span class="es">📍 DeFlock PR</span></a>
+  <a href="#template" class="nav-a"><span class="en">📄 Community Template</span><span class="es">📄 Plantilla Comunitaria</span></a>
+  <a href="#sources" class="nav-a"><span class="en">🔎 Sources</span><span class="es">🔎 Fuentes</span></a>
+</nav>
+
+<div id="ticker"><div class="ticker-track" id="tickerTrack"></div></div>
+
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-scan"></div>
+  <div class="hero-over">
+    <span class="en">#StopFlockPR — Civil Liberties Emergency — Puerto Rico</span>
+    <span class="es">#StopFlockPR — Emergencia de Libertades Civiles — Puerto Rico</span>
+  </div>
+  <div class="hero-h1">
+    <span class="en">STOP<br><span class="red">FLOCK</span><br>PR</span>
+    <span class="es">ALTO<br><span class="red">FLOCK</span><br>PR</span>
+  </div>
+  <p class="hero-sub">
+    <span class="en">Without a public vote. Without a privacy review. Without your consent — Puerto Rico is building a 50,000-camera surveillance network that tracks every vehicle, every face, every movement, 24 hours a day.</span>
+    <span class="es">Sin votación pública. Sin evaluación de privacidad. Sin tu consentimiento — Puerto Rico está construyendo una red de 50,000 cámaras que rastrea cada vehículo, cada rostro, cada movimiento, 24 horas al día.</span>
+  </p>
+  <div class="hero-ctas">
+    <a href="#petition" class="btn-red"><span class="en">✊ Sign the Petition</span><span class="es">✊ Firma la Petición</span></a>
+    <a href="#cameras" class="btn-ghost"><span class="en">What are these cameras?</span><span class="es">¿Qué son estas cámaras?</span></a>
+  </div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-n">50,000</div><div class="hstat-l"><span class="en">Cameras Planned</span><span class="es">Cámaras Planeadas</span></div></div>
+    <div class="hstat"><div class="hstat-n">5,000</div><div class="hstat-l"><span class="en">Already Installed</span><span class="es">Ya Instaladas</span></div></div>
+    <div class="hstat"><div class="hstat-n">1.6M</div><div class="hstat-l"><span class="en">Database Queries</span><span class="es">Consultas Federales</span></div></div>
+    <div class="hstat"><div class="hstat-n">0</div><div class="hstat-l"><span class="en">Public Votes Held</span><span class="es">Votos Públicos</span></div></div>
+  </div>
+</section>
+
+<!-- PETITION -->
+<section id="petition" class="section">
+  <span class="sec-label"><span class="en">Our 7 Demands</span><span class="es">Nuestras 7 Demandas</span></span>
+  <h2 class="sec-h2"><span class="en">Sign the Petition</span><span class="es">Firma la Petición</span></h2>
+  <div class="petition-layout">
+    <div>
+      <p class="sec-body">
+        <span class="en">We, the undersigned residents of Puerto Rico and supporters of civil liberties, demand that elected officials immediately address the unchecked expansion of mass surveillance infrastructure across our island. The deployment of Flock Safety ALPR networks and police surveillance towers without public debate, legislative oversight, or constitutional review represents a fundamental threat to our rights to privacy, assembly, and free movement.</span>
+        <span class="es">Nosotros, los abajo firmantes, residentes de Puerto Rico y defensores de las libertades civiles, exigimos que los funcionarios electos aborden de inmediato la expansión descontrolada de infraestructura de vigilancia masiva. El despliegue de redes Flock Safety y torres de vigilancia policial sin debate público, supervisión legislativa ni revisión constitucional representa una amenaza fundamental a nuestros derechos.</span>
+      </p>
+      <div style="margin-top:32px">
+        <div class="demand-item"><div class="demand-n">01</div><div class="demand-txt"><strong><span class="en">Immediate Moratorium</span><span class="es">Moratoria Inmediata</span></strong><span class="en">Stop all new Flock Safety and surveillance tower installations immediately while a full public review is conducted.</span><span class="es">Detener todas las nuevas instalaciones de cámaras Flock Safety y torres de vigilancia de inmediato mientras se realiza una revisión pública completa.</span></div></div>
+        <div class="demand-item"><div class="demand-n">02</div><div class="demand-txt"><strong><span class="en">Public Legislative Vote</span><span class="es">Voto Legislativo Público</span></strong><span class="en">Any surveillance expansion must be approved by the Puerto Rico Legislature through a public vote — no more contracts made in the dark.</span><span class="es">Cualquier expansión de vigilancia debe ser aprobada por la Legislatura mediante votación pública — no más contratos hechos en la oscuridad.</span></div></div>
+        <div class="demand-item"><div class="demand-n">03</div><div class="demand-txt"><strong><span class="en">Full Contract Disclosure</span><span class="es">Divulgación Total de Contratos</span></strong><span class="en">Publish all contracts between government agencies and Flock Safety, including any agreements with Resilient International PR LLC (Reg. #412203).</span><span class="es">Publicar todos los contratos entre agencias gubernamentales y Flock Safety, incluyendo acuerdos con Resilient International PR LLC (Reg. #412203).</span></div></div>
+        <div class="demand-item"><div class="demand-n">04</div><div class="demand-txt"><strong><span class="en">Warrant Requirement</span><span class="es">Requisito de Orden Judicial</span></strong><span class="en">All access to surveillance data — by local police, federal agencies, or private contractors — must require a valid court warrant.</span><span class="es">Todo acceso a datos de vigilancia — por policías locales, agencias federales o contratistas privados — debe requerir una orden judicial válida.</span></div></div>
+        <div class="demand-item"><div class="demand-n">05</div><div class="demand-txt"><strong><span class="en">Delete Unlawfully Collected Data</span><span class="es">Eliminar Datos Ilegalmente Recopilados</span></strong><span class="en">Immediately purge all data collected without judicial oversight, and establish strict retention limits going forward.</span><span class="es">Eliminar de inmediato todos los datos recopilados sin supervisión judicial y establecer límites estrictos de retención.</span></div></div>
+        <div class="demand-item"><div class="demand-n">06</div><div class="demand-txt"><strong><span class="en">Independent Civil Liberties Board</span><span class="es">Junta Independiente de Libertades Civiles</span></strong><span class="en">Create a civilian oversight board with real authority to audit, restrict, or dismantle surveillance systems that violate constitutional rights.</span><span class="es">Crear una junta de supervisión civil con autoridad real para auditar, restringir o desmantelar sistemas de vigilancia que violen derechos constitucionales.</span></div></div>
+        <div class="demand-item"><div class="demand-n">07</div><div class="demand-txt"><strong><span class="en">Ethics Investigation: Alexis Torres Ríos</span><span class="es">Investigación Ética: Alexis Torres Ríos</span></strong><span class="en">Formally investigate the former DPS Secretary now heading Resilient International PR LLC — Flock Safety's exclusive Puerto Rico reseller. Senate Resolution R. del S. 138 was filed April 10, 2025. No hearing. No vote. No report. That changes now.</span><span class="es">Investigar formalmente al ex Secretario de DPS que ahora dirige Resilient International PR LLC — el revendedor exclusivo de Flock Safety. La Resolución R. del S. 138 fue presentada el 10 de abril de 2025. Sin audiencia. Sin votación. Sin informe. Eso cambia ahora.</span></div></div>
+      </div>
+    </div>
+    <div class="petition-form-box">
+      <div class="pform-title"><span class="en">Add Your Name</span><span class="es">Agrega Tu Nombre</span></div>
+      <p class="pform-sub"><span class="en">Join Puerto Ricans demanding accountability and privacy rights.</span><span class="es">Únete a los puertorriqueños que exigen rendición de cuentas y derechos de privacidad.</span></p>
+      <div id="pFormWrap">
+        <div class="frow">
+          <div class="fld"><label><span class="en">First Name</span><span class="es">Nombre</span></label><input type="text" id="pfirst" placeholder="María"></div>
+          <div class="fld"><label><span class="en">Last Name</span><span class="es">Apellido</span></label><input type="text" id="plast" placeholder="Rivera"></div>
+        </div>
+        <div class="fld"><label>Email</label><input type="email" id="pemail" placeholder="you@example.com"></div>
+        <div class="fld"><label><span class="en">Municipality</span><span class="es">Municipio</span></label>
+          <select id="pmuni"><option value="">Select / Selecciona...</option><option>Adjuntas</option><option>Aguada</option><option>Aguadilla</option><option>Aguas Buenas</option><option>Aibonito</option><option>Añasco</option><option>Arecibo</option><option>Arroyo</option><option>Barceloneta</option><option>Barranquitas</option><option>Bayamón</option><option>Cabo Rojo</option><option>Caguas</option><option>Camuy</option><option>Canóvanas</option><option>Carolina</option><option>Cataño</option><option>Cayey</option><option>Ceiba</option><option>Ciales</option><option>Cidra</option><option>Coamo</option><option>Comerío</option><option>Corozal</option><option>Culebra</option><option>Dorado</option><option>Fajardo</option><option>Florida</option><option>Guánica</option><option>Guayama</option><option>Guayanilla</option><option>Guaynabo</option><option>Gurabo</option><option>Hatillo</option><option>Hormigueros</option><option>Humacao</option><option>Isabela</option><option>Jayuya</option><option>Juana Díaz</option><option>Juncos</option><option>Lajas</option><option>Lares</option><option>Las Marías</option><option>Las Piedras</option><option>Loíza</option><option>Luquillo</option><option>Manatí</option><option>Maricao</option><option>Maunabo</option><option>Mayagüez</option><option>Moca</option><option>Morovis</option><option>Naguabo</option><option>Naranjito</option><option>Orocovis</option><option>Patillas</option><option>Peñuelas</option><option>Ponce</option><option>Quebradillas</option><option>Rincón</option><option>Río Grande</option><option>Sabana Grande</option><option>Salinas</option><option>San Germán</option><option>San Juan</option><option>San Lorenzo</option><option>San Sebastián</option><option>Santa Isabel</option><option>Toa Alta</option><option>Toa Baja</option><option>Trujillo Alto</option><option>Utuado</option><option>Vega Alta</option><option>Vega Baja</option><option>Vieques</option><option>Villalba</option><option>Yabucoa</option><option>Yauco</option></select>
+        </div>
+        <div class="fld"><label><span class="en">Organization (optional)</span><span class="es">Organización (opcional)</span></label><input type="text" id="porg" placeholder="ACLU PR, community group…"></div>
+        <div class="fld"><label><span class="en">Your Message (optional)</span><span class="es">Tu Mensaje (opcional)</span></label><textarea id="pmsg" placeholder="Why does this matter to you?"></textarea></div>
+        <button class="sign-btn" onclick="signPetition()"><span class="en">SIGN THE PETITION</span><span class="es">FIRMAR LA PETICIÓN</span></button>
+        <div class="sig-count-box"><div class="sig-num" id="sigCount">1,247</div><div class="sig-lbl"><span class="en">signatures and growing</span><span class="es">firmas y creciendo</span></div></div>
+      </div>
+      <div class="signed-state" id="signedState">
+        <div class="signed-big"><span class="en">✊ Thank You!</span><span class="es">✊ ¡Gracias!</span></div>
+        <p class="signed-sub"><span class="en">Your signature is recorded. Now share — every voice matters.</span><span class="es">Tu firma ha sido registrada. Ahora comparte — cada voz importa.</span></p>
+        <div class="share-row">
+          <a class="sh-btn" href="https://twitter.com/intent/tweet?text=%23StopFlockPR%20%E2%80%94%2050%2C000%20surveillance%20cameras%20in%20Puerto%20Rico%20with%20no%20public%20vote.%20Sign%3A%20https%3A%2F%2Fstopflockpr.org" target="_blank">Twitter/X</a>
+          <a class="sh-btn" href="https://www.facebook.com/sharer/sharer.php?u=https://stopflockpr.org" target="_blank">Facebook</a>
+          <a class="sh-btn" href="https://wa.me/?text=%23StopFlockPR%20%E2%80%94%2050%2C000%20c%C3%A1maras%20en%20Puerto%20Rico%20sin%20voto%20p%C3%BAblico.%20Firma%3A%20https%3A%2F%2Fstopflockpr.org" target="_blank">WhatsApp</a>
+          <button class="sh-btn" onclick="copyLink()"><span class="en">Copy Link</span><span class="es">Copiar Enlace</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMERAS -->
+<section id="cameras" class="section">
+  <span class="sec-label"><span class="en">Know Your Cameras</span><span class="es">Conoce Tus Cámaras</span></span>
+  <h2 class="sec-h2"><span class="en">Two Systems.<br>Total Surveillance.</span><span class="es">Dos Sistemas.<br>Vigilancia Total.</span></h2>
+  <p class="sec-body">
+    <span class="en">Puerto Rico is deploying two completely different — but deeply interconnected — surveillance technologies. Understanding what each one actually does is the first step to fighting back. This is not theory. This is already operating in your neighborhood, right now.</span>
+    <span class="es">Puerto Rico está desplegando dos tecnologías de vigilancia completamente diferentes — pero profundamente interconectadas. Entender lo que cada una hace realmente es el primer paso para luchar. Esto no es teoría. Ya está operando en tu vecindario, ahora mismo.</span>
+  </p>
+  <div class="cam-grid">
+    <div class="cam-card flock">
+      <div class="cam-icon-wrap">
+        <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="28" width="94" height="54" rx="4" fill="#1a1200" stroke="#e8a000" stroke-width="2"/>
+          <rect x="20" y="40" width="70" height="30" rx="2" fill="#0d0900" stroke="#e8a000" stroke-width="1.5"/>
+          <circle cx="55" cy="55" r="11" fill="#1a1200" stroke="#e8a000" stroke-width="1.5"/>
+          <circle cx="55" cy="55" r="4.5" fill="#e8a000" opacity=".5"/>
+          <rect x="49" y="82" width="12" height="18" rx="2" fill="#e8a000" opacity=".25"/>
+          <rect x="40" y="98" width="30" height="5" rx="2" fill="#e8a000" opacity=".3"/>
+          <line x1="28" y1="53" x2="20" y2="53" stroke="#e8a000" stroke-width="1" opacity=".5"/>
+          <line x1="28" y1="57" x2="20" y2="57" stroke="#e8a000" stroke-width="1" opacity=".5"/>
+          <line x1="82" y1="53" x2="90" y2="53" stroke="#e8a000" stroke-width="1" opacity=".5"/>
+          <line x1="82" y1="57" x2="90" y2="57" stroke="#e8a000" stroke-width="1" opacity=".5"/>
+          <text x="55" y="108" text-anchor="middle" fill="#e8a000" font-size="7" font-family="monospace" opacity=".5">ALPR UNIT</text>
+        </svg>
+      </div>
+      <div class="cam-badge">System 1 — Flock Safety ALPR</div>
+      <div class="cam-name">Flock Safety Camera</div>
+      <div class="cam-aka"><span class="en">Automated License Plate Reader — the gold/white box on poles across Puerto Rico</span><span class="es">Lector Automático de Placas — la caja dorada/blanca en postes por toda la isla</span></div>
+      <p class="cam-desc"><span class="en">At first glance it looks like a traffic camera. It is not. Every time a car passes within range, this device creates a permanent, searchable record — not just of your plate, but of your entire vehicle and movement history. Thousands are already installed. 50,000 are planned.</span><span class="es">A primera vista parece una cámara de tráfico. No lo es. Cada vez que un auto pasa, este dispositivo crea un registro permanente y buscable — no solo de tu placa, sino de todo tu vehículo e historial de movimiento. Miles ya están instaladas. Se planean 50,000.</span></p>
+      <ul class="cam-feats">
+        <li><strong><span class="en">Reads every plate instantly</span><span class="es">Lee cada placa al instante</span></strong> — <span class="en">logs your plate number, exact time, GPS location, and direction of travel every single time you drive past. No warrant needed.</span><span class="es">registra tu número de placa, hora exacta, ubicación GPS y dirección de viaje cada vez que pasas. No se necesita orden judicial.</span></li>
+        <li><strong><span class="en">Builds a 4,000-point vehicle fingerprint</span><span class="es">Construye una huella de vehículo de 4,000 puntos</span></strong> — <span class="en">AI scans make, model, color, bumper stickers, dents, window tint, and roof racks. Your car becomes uniquely identifiable even without a clear plate read.</span><span class="es">La IA escanea marca, modelo, color, calcomanías, abolladuras y tinte de ventanas. Tu auto se vuelve identificable incluso sin leer claramente la placa.</span></li>
+        <li><strong><span class="en">Convoy analysis</span><span class="es">Análisis de convoys</span></strong> — <span class="en">if your car appears near the same vehicle repeatedly across multiple cameras, Flock's AI flags both as "associated" — tracking you by who you drive near, not what you've done.</span><span class="es">si tu auto aparece cerca del mismo vehículo repetidamente, la IA de Flock marca ambos como "asociados" — rastreándote por con quién manejas, no por lo que hayas hecho.</span></li>
+        <li><strong><span class="en">Auto-alerts without a warrant</span><span class="es">Alertas automáticas sin orden judicial</span></strong> — <span class="en">police can add any plate to a "hot list" and receive an instant alert the moment that car is spotted anywhere in the network. No judge. No court order. Required.</span><span class="es">la policía puede agregar cualquier placa a una "lista de alertas" y recibir notificación inmediata. Sin juez. Sin orden judicial.</span></li>
+        <li><strong><span class="en">Builds a pattern-of-life map</span><span class="es">Construye un mapa de patrón de vida</span></strong> — <span class="en">over time the system automatically maps where you live, work, worship, shop, and who you visit — all without you ever being suspected of a crime.</span><span class="es">con el tiempo el sistema mapea automáticamente dónde vives, trabajas, oras, compras y a quién visitas — todo sin que jamás seas sospechoso de un crimen.</span></li>
+        <li><strong><span class="en">Shared nationally — no warrant required</span><span class="es">Compartido nacionalmente — sin orden judicial</span></strong> — <span class="en">your data doesn't stay in Puerto Rico. It's shared with law enforcement across the country, including federal agencies, through Flock's national network.</span><span class="es">tus datos no se quedan en Puerto Rico. Se comparten con agencias policiales de todo el país, incluyendo agencias federales, a través de la red nacional de Flock.</span></li>
+      </ul>
+      <div class="cam-warn"><span class="en">⚠ You don't need to be suspected of anything. Every trip you take is logged permanently.</span><span class="es">⚠ No necesitas ser sospechoso de nada. Cada viaje que haces queda registrado permanentemente.</span></div>
+    </div>
+    <div class="cam-card tower">
+      <div class="cam-icon-wrap">
+        <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="50" y="8" width="10" height="74" fill="#0a1520" stroke="#0088e8" stroke-width="1.5"/>
+          <rect x="44" y="80" width="22" height="7" rx="2" fill="#0088e8" opacity=".3"/>
+          <rect x="36" y="86" width="38" height="6" rx="2" fill="#0088e8" opacity=".35"/>
+          <rect x="28" y="92" width="54" height="5" rx="2" fill="#0088e8" opacity=".2"/>
+          <ellipse cx="55" cy="20" rx="17" ry="11" fill="#0a1520" stroke="#0088e8" stroke-width="1.5"/>
+          <circle cx="55" cy="20" r="5.5" fill="#001830" stroke="#0088e8" stroke-width="1.5"/>
+          <circle cx="55" cy="20" r="2" fill="#0088e8" opacity=".7"/>
+          <line x1="26" y1="46" x2="50" y2="46" stroke="#0088e8" stroke-width="1" opacity=".35" stroke-dasharray="3 3"/>
+          <line x1="84" y1="46" x2="60" y2="46" stroke="#0088e8" stroke-width="1" opacity=".35" stroke-dasharray="3 3"/>
+          <circle cx="24" cy="46" r="3" fill="#0088e8" opacity=".25"/>
+          <circle cx="86" cy="46" r="3" fill="#0088e8" opacity=".25"/>
+          <text x="55" y="108" text-anchor="middle" fill="#0088e8" font-size="7" font-family="monospace" opacity=".5">SURVEILLANCE TOWER</text>
+        </svg>
+      </div>
+      <div class="cam-badge">System 2 — Police Surveillance Tower</div>
+      <div class="cam-name">Surveillance Tower</div>
+      <div class="cam-aka"><span class="en">High-pole camera towers — often with blue LED lighting in urban areas</span><span class="es">Torres de cámara de poste alto — a menudo con iluminación LED azul en áreas urbanas</span></div>
+      <p class="cam-desc"><span class="en">These are not streetlights. These are complete surveillance platforms mounted 20–30 feet in the air, capable of reading faces, tracking individuals, and listening to conversations across a wide area — around the clock, in any lighting condition.</span><span class="es">Estas no son farolas. Son plataformas de vigilancia completas montadas a 6–9 metros de altura, capaces de leer rostros, rastrear personas y escuchar conversaciones — las 24 horas, en cualquier condición de iluminación.</span></p>
+      <ul class="cam-feats">
+        <li><strong><span class="en">80× optical zoom</span><span class="es">Zoom óptico 80×</span></strong> — <span class="en">powerful enough to read the text on your phone screen from across the street, or identify what's in your shopping bag from over a block away.</span><span class="es">suficientemente potente para leer el texto en tu teléfono desde el otro lado de la calle, o identificar el contenido de tu bolsa desde más de una cuadra de distancia.</span></li>
+        <li><strong><span class="en">Night vision + thermal imaging</span><span class="es">Visión nocturna + imagen térmica</span></strong> — <span class="en">operates in complete darkness. Thermal cameras detect body heat — impossible to avoid detection even at night with no lighting.</span><span class="es">opera en completa oscuridad. Las cámaras térmicas detectan el calor corporal — imposible evitar la detección incluso de noche.</span></li>
+        <li><strong><span class="en">Real-time facial recognition</span><span class="es">Reconocimiento facial en tiempo real</span></strong> — <span class="en">live-matches your face against criminal databases, immigration records, and watchlists as you walk down the street — before you've done anything wrong.</span><span class="es">coincide en vivo tu rostro con bases de datos criminales, registros de inmigración y listas de vigilancia mientras caminas — antes de que hayas hecho nada malo.</span></li>
+        <li><strong><span class="en">Gait tracking — even with a mask</span><span class="es">Seguimiento de marcha — incluso con mascarilla</span></strong> — <span class="en">AI identifies you by how you walk. Wearing a mask or a hood? The system identifies you by your unique walking pattern, your stride, your posture.</span><span class="es">La IA te identifica por cómo caminas. ¿Usando mascarilla o capucha? El sistema te identifica por tu patrón único de caminar, tu zancada, tu postura.</span></li>
+        <li><strong><span class="en">ShotSpotter-grade microphones</span><span class="es">Micrófonos de grado ShotSpotter</span></strong> — <span class="en">sensitive enough to detect a gunshot from blocks away — but also sensitive enough to capture and record conversations happening on the street below.</span><span class="es">suficientemente sensibles para detectar un disparo a cuadras de distancia — pero también para capturar y grabar conversaciones en la calle de abajo.</span></li>
+        <li><strong><span class="en">Live feeds to Real-Time Crime Centers 24/7</span><span class="es">Transmisiones en vivo a Centros de Crimen en Tiempo Real</span></strong> — <span class="en">every camera streams continuously to centralized monitoring centers where analysts — and AI — watch in real time and can dispatch police instantly.</span><span class="es">cada cámara transmite continuamente a centros de monitoreo donde analistas — e IA — observan en tiempo real y pueden despachar policías al instante.</span></li>
+      </ul>
+      <div class="cam-warn"><span class="en">⚠ These towers identify you even if you never drive — by your face, your walk, or your voice.</span><span class="es">⚠ Estas torres te identifican aunque nunca manejes — por tu rostro, tu forma de caminar o tu voz.</span></div>
+    </div>
+  </div>
+  <div class="cam-combined">
+    <div class="cam-combined-h"><span class="en">Together: No Blind Spots. No Privacy. No Warrant Required.</span><span class="es">Juntos: Sin Puntos Ciegos. Sin Privacidad. Sin Orden Judicial.</span></div>
+    <p class="cam-combined-b"><span class="en">When these two systems operate together — as they do in Puerto Rico right now — every person in range is tracked from the moment they leave their home to the moment they return. Your vehicle is logged by Flock every time you drive. Your face and walk are captured by towers every time you're outside. Both systems share data automatically with local police and federal agencies including ICE, FBI, CBP, and private intelligence platforms like Palantir — without you ever being charged with a crime, without your knowledge, and without a judge's approval.</span><span class="es">Cuando estos dos sistemas operan juntos — como lo hacen en Puerto Rico ahora mismo — toda persona es rastreada desde que sale de su hogar hasta que regresa. Tu vehículo es registrado por Flock cada vez que manejas. Tu rostro y marcha son capturados por las torres cada vez que estás afuera. Ambos comparten datos automáticamente con la policía local y agencias federales incluyendo ICE, FBI, CBP, y plataformas privadas como Palantir — sin que jamás seas acusado de un crimen, sin tu conocimiento y sin aprobación judicial.</span></p>
+  </div>
+</section>
+
+<!-- FEDERAL -->
+<section id="federal" class="section">
+  <span class="sec-label"><span class="en">Federal Integration</span><span class="es">Integración Federal</span></span>
+  <h2 class="sec-h2"><span class="en">Your Data Goes<br>Further Than You Think</span><span class="es">Tus Datos Van<br>Más Lejos de lo que Crees</span></h2>
+  <p class="sec-body"><span class="en">The data collected on Puerto Rico's streets doesn't stay in Puerto Rico. Through documented integrations and data-sharing agreements, it flows directly to federal agencies and private intelligence contractors — with no warrant, no notification, and no recourse for you.</span><span class="es">Los datos recopilados en las calles de Puerto Rico no se quedan aquí. A través de integraciones documentadas, fluyen directamente a agencias federales y contratistas de inteligencia privada — sin orden judicial, sin notificación y sin recurso para ti.</span></p>
+  <div class="fed-grid">
+    <div class="fed-card"><div class="fed-agency">ICE</div><p class="fed-desc"><span class="en">Immigration and Customs Enforcement accesses Flock Safety networks nationally. For Puerto Rico's 3.2 million U.S. citizen residents, your movements are accessible to federal immigration enforcement — even though you were born American.</span><span class="es">Inmigración y Control de Aduanas accede a las redes de Flock Safety a nivel nacional. Para los 3.2 millones de residentes ciudadanos estadounidenses de Puerto Rico, tus movimientos están accesibles para la aplicación federal de inmigración.</span></p></div>
+    <div class="fed-card"><div class="fed-agency">FBI</div><p class="fed-desc"><span class="en">The FBI uses ALPR data for investigations, background checks, and tracking persons of interest — often without individual warrants, relying on broad data-sharing agreements that bypass the warrant requirement entirely.</span><span class="es">El FBI usa datos de ALPR para investigaciones, verificaciones de antecedentes y seguimiento de personas de interés — a menudo sin órdenes judiciales individuales, apoyándose en amplios acuerdos de intercambio de datos.</span></p></div>
+    <div class="fed-card"><div class="fed-agency">CBP</div><p class="fed-desc"><span class="en">Customs and Border Protection maintains surveillance operations on the island and accesses vehicle movement data through joint law enforcement agreements — despite Puerto Rico being entirely domestic U.S. territory.</span><span class="es">La Patrulla Fronteriza mantiene operaciones de vigilancia en la isla y accede a datos de movimiento vehicular a través de acuerdos conjuntos — a pesar de que Puerto Rico es territorio doméstico de EE.UU.</span></p></div>
+    <div class="fed-card"><div class="fed-agency">PALANTIR</div><p class="fed-desc"><span class="en">Palantir's Gotham platform integrates directly with Flock Safety data, feeding vehicle movement records into AI-powered predictive policing and link analysis tools. Over 1.6 million database queries were logged in 2026 alone.</span><span class="es">La plataforma Gotham de Palantir se integra directamente con datos de Flock Safety, alimentando registros de movimiento vehicular en herramientas de policía predictiva con IA. Más de 1.6 millones de consultas solo en 2026.</span></p></div>
+  </div>
+</section>
+
+<!-- CONFLICT -->
+<section id="conflict" class="section">
+  <span class="sec-label"><span class="en">Conflict of Interest</span><span class="es">Conflicto de Interés</span></span>
+  <h2 class="sec-h2"><span class="en">Who Profits?<br>Who Was Watching?</span><span class="es">¿Quién Se Beneficia?<br>¿Quién Vigilaba?</span></h2>
+  <div class="conflict-box">
+    <p><span class="en"><strong>Alexis Torres Ríos</strong> served as Secretary of the Puerto Rico Department of Public Safety (DPS) — the agency overseeing police and surveillance infrastructure. After leaving office, he became president of <strong>Resilient International PR LLC</strong> (Corporate Registration #412203) — the exclusive Flock Safety reseller for Puerto Rico.</span><span class="es"><strong>Alexis Torres Ríos</strong> fue Secretario del Departamento de Seguridad Pública (DSP) de Puerto Rico — la agencia que supervisa la policía y la infraestructura de vigilancia. Después de dejar el cargo, se convirtió en presidente de <strong>Resilient International PR LLC</strong> (Registro Corporativo #412203) — el revendedor exclusivo de Flock Safety para Puerto Rico.</span></p>
+    <p><span class="en">Resilient International PR LLC appears on Flock Safety's official partner page and signed a contract with the City of San Juan — the largest municipality in Puerto Rico. The former head of public safety is now financially profiting from surveillance contracts with the government he recently ran.</span><span class="es">Resilient International PR LLC aparece en la página oficial de socios de Flock Safety y firmó un contrato con la Ciudad de San Juan. El ex jefe de seguridad pública ahora se beneficia financieramente de contratos de vigilancia con el gobierno que dirigía recientemente.</span></p>
+    <p><span class="en"><strong>On April 10, 2025,</strong> Puerto Rico Senate Resolution <strong>R. del S. 138</strong> was filed — calling for a formal investigation into this conflict of interest and the surveillance expansion. <strong>No hearing was ever scheduled. No vote was taken. No report was published.</strong> The investigation was buried before it began.</span><span class="es"><strong>El 10 de abril de 2025,</strong> se presentó la Resolución <strong>R. del S. 138</strong> — solicitando una investigación formal sobre este conflicto de interés y la expansión de vigilancia. <strong>Nunca se programó una audiencia. No se tomó ningún voto. No se publicó ningún informe.</strong> La investigación fue enterrada antes de comenzar.</span></p>
+  </div>
+  <a href="#petition" class="btn-red"><span class="en">Demand the Investigation</span><span class="es">Exige la Investigación</span></a>
+</section>
+
+<!-- DEFLOCK -->
+<section id="deflock" class="section">
+  <span class="sec-label">DeFlock PR — <span class="en">Community Camera Registry</span><span class="es">Registro Comunitario de Cámaras</span></span>
+  <h2 class="sec-h2"><span class="en">Report a Camera<br>in Your Area</span><span class="es">Reporta una Cámara<br>en Tu Área</span></h2>
+  <p class="sec-body"><span class="en">Help build Puerto Rico's first community-led surveillance map. If you've spotted a Flock Safety ALPR camera or a police surveillance tower in your neighborhood, report it here. Your reports help journalists, lawyers, and community organizers document the true scope of this network.</span><span class="es">Ayuda a construir el primer mapa de vigilancia comunitario de Puerto Rico. Si has visto una cámara Flock Safety o una torre de vigilancia policial en tu vecindario, repórtala aquí. Tus reportes ayudan a periodistas, abogados y organizadores a documentar el verdadero alcance de esta red.</span></p>
+  <div class="report-tabs">
+    <button class="rtab flock on" onclick="switchTab('flock')">📷 <span class="en">Flock Safety Camera</span><span class="es">Cámara Flock Safety</span></button>
+    <button class="rtab tower" onclick="switchTab('tower')">🗼 <span class="en">Surveillance Tower</span><span class="es">Torre de Vigilancia</span></button>
+  </div>
+  <div class="rform on" id="flockForm">
+    <div class="rform-title"><span class="en">Report a Flock Safety ALPR Camera</span><span class="es">Reportar Cámara ALPR Flock Safety</span></div>
+    <p class="rform-sub"><span class="en">Flock cameras are typically rectangular silver/grey or white boxes mounted on poles, often solar-powered, usually 8–15 feet off the ground.</span><span class="es">Las cámaras Flock son típicamente cajas rectangulares plateadas/grises o blancas montadas en postes, a menudo con energía solar, generalmente a 2.5–4.5 metros del suelo.</span></p>
+    <div class="rrow">
+      <div class="rf"><label><span class="en">Street Address / Intersection</span><span class="es">Dirección / Intersección</span></label><input type="text" placeholder="e.g. Calle Luna &amp; Calle Sol, San Juan"></div>
+      <div class="rf"><label><span class="en">Municipality</span><span class="es">Municipio</span></label><select><option value="">Select...</option><option>Adjuntas</option><option>Aguada</option><option>Aguadilla</option><option>Arecibo</option><option>Bayamón</option><option>Cabo Rojo</option><option>Caguas</option><option>Carolina</option><option>Cataño</option><option>Cayey</option><option>Dorado</option><option>Guaynabo</option><option>Humacao</option><option>Mayagüez</option><option>Ponce</option><option>Río Grande</option><option>San Juan</option><option>Toa Alta</option><option>Toa Baja</option><option>Trujillo Alto</option><option>Vega Alta</option><option>Vega Baja</option><option>Yauco</option><option>Other / Otro</option></select></div>
+    </div>
+    <div class="rrow">
+      <div class="rf"><label><span class="en">Mounting Location</span><span class="es">Ubicación de Montaje</span></label><select><option>Utility pole / Poste eléctrico</option><option>Traffic light / Semáforo</option><option>Dedicated pole / Poste dedicado</option><option>Building exterior</option><option>Other / Otro</option></select></div>
+      <div class="rf"><label><span class="en">Solar Panel?</span><span class="es">¿Panel Solar?</span></label><select><option>Yes / Sí</option><option>No</option><option>Not sure</option></select></div>
+    </div>
+    <div class="rf"><label><span class="en">Date Spotted</span><span class="es">Fecha Vista</span></label><input type="date"></div>
+    <div class="rf"><label><span class="en">Additional Notes</span><span class="es">Notas Adicionales</span></label><textarea placeholder="Any markings, number of cameras, nearby landmarks..."></textarea></div>
+    <div class="rf"><label><span class="en">Your Email (optional)</span><span class="es">Tu Email (opcional)</span></label><input type="email" placeholder="you@example.com"></div>
+    <button class="submit-red" onclick="submitReport('flock')"><span class="en">SUBMIT REPORT</span><span class="es">ENVIAR REPORTE</span></button>
+    <div class="report-ok" id="flockOk"><span class="en">✓ Report submitted. Thank you — every camera documented matters.</span><span class="es">✓ Reporte enviado. Gracias — cada cámara documentada importa.</span></div>
+  </div>
+  <div class="rform" id="towerForm">
+    <div class="rform-title"><span class="en">Report a Police Surveillance Tower</span><span class="es">Reportar Torre de Vigilancia Policial</span></div>
+    <p class="rform-sub"><span class="en">Surveillance towers are typically 20–35 ft tall poles with a dome or multi-lens camera housing at the top, often with blue LEDs, solar panels, and a cellular antenna. Sometimes mobile on a trailer.</span><span class="es">Las torres de vigilancia son típicamente postes de 6–10 metros de altura con una cúpula de cámaras en la cima, a menudo con LEDs azules, paneles solares y antena celular. A veces son móviles sobre remolques.</span></p>
+    <div class="rrow">
+      <div class="rf"><label><span class="en">Street Address / Intersection</span><span class="es">Dirección / Intersección</span></label><input type="text" placeholder="e.g. Av. Ponce de León, Miramar"></div>
+      <div class="rf"><label><span class="en">Municipality</span><span class="es">Municipio</span></label><select><option value="">Select...</option><option>Adjuntas</option><option>Aguada</option><option>Aguadilla</option><option>Arecibo</option><option>Bayamón</option><option>Cabo Rojo</option><option>Caguas</option><option>Carolina</option><option>Cataño</option><option>Cayey</option><option>Dorado</option><option>Guaynabo</option><option>Humacao</option><option>Mayagüez</option><option>Ponce</option><option>Río Grande</option><option>San Juan</option><option>Toa Alta</option><option>Toa Baja</option><option>Trujillo Alto</option><option>Vega Alta</option><option>Vega Baja</option><option>Yauco</option><option>Other / Otro</option></select></div>
+    </div>
+    <div class="rrow">
+      <div class="rf"><label><span class="en">Tower Type</span><span class="es">Tipo de Torre</span></label><select><option>Fixed / Fija</option><option>Mobile (trailer) / Móvil</option><option>Not sure</option></select></div>
+      <div class="rf"><label><span class="en">Blue LEDs visible?</span><span class="es">¿LEDs azules visibles?</span></label><select><option>Yes / Sí</option><option>No</option><option>Not sure</option></select></div>
+    </div>
+    <div class="rf"><label><span class="en">Equipment Visible</span><span class="es">Equipo Visible</span></label><textarea placeholder="e.g. dome camera, PTZ cameras, solar panels, cellular antenna, gunshot detection mics, police markings, private company logo..."></textarea></div>
+    <div class="rf"><label><span class="en">Date Spotted</span><span class="es">Fecha Vista</span></label><input type="date"></div>
+    <div class="rf"><label><span class="en">Your Email (optional)</span><span class="es">Tu Email (opcional)</span></label><input type="email" placeholder="you@example.com"></div>
+    <button class="submit-red" onclick="submitReport('tower')"><span class="en">SUBMIT REPORT</span><span class="es">ENVIAR REPORTE</span></button>
+    <div class="report-ok" id="towerOk"><span class="en">✓ Tower reported. This data is critical — thank you.</span><span class="es">✓ Torre reportada. Estos datos son críticos — gracias.</span></div>
+  </div>
+</section>
+
+<!-- COMMUNITY TEMPLATE -->
+<section id="template" class="section">
+  <span class="sec-label"><span class="en">Community Action</span><span class="es">Acción Comunitaria</span></span>
+  <h2 class="sec-h2"><span class="en">Petition Template<br>for Your Municipality</span><span class="es">Plantilla de Petición<br>para Tu Municipio</span></h2>
+  <p class="sec-body"><span class="en">Every municipality in Puerto Rico has the power to demand accountability from its mayor and local government. Select your municipality and language to generate a ready-to-print petition you can circulate at community meetings, churches, schools, or businesses.</span><span class="es">Cada municipio en Puerto Rico tiene el poder de exigir rendición de cuentas a su alcalde. Selecciona tu municipio e idioma para generar una petición lista para imprimir y circular en reuniones comunitarias, iglesias, escuelas o negocios.</span></p>
+  <div class="tmpl-controls">
+    <div class="tmpl-sw">
+      <label><span class="en">Select Municipality</span><span class="es">Selecciona Municipio</span></label>
+      <select id="tmplMuni" onchange="generateTemplate()">
+        <option value=""><span class="en">— Choose your municipality —</span><span class="es">— Elige tu municipio —</span></option>
+        <option>Adjuntas</option><option>Aguada</option><option>Aguadilla</option><option>Aguas Buenas</option><option>Aibonito</option><option>Añasco</option><option>Arecibo</option><option>Arroyo</option><option>Barceloneta</option><option>Barranquitas</option><option>Bayamón</option><option>Cabo Rojo</option><option>Caguas</option><option>Camuy</option><option>Canóvanas</option><option>Carolina</option><option>Cataño</option><option>Cayey</option><option>Ceiba</option><option>Ciales</option><option>Cidra</option><option>Coamo</option><option>Comerío</option><option>Corozal</option><option>Culebra</option><option>Dorado</option><option>Fajardo</option><option>Florida</option><option>Guánica</option><option>Guayama</option><option>Guayanilla</option><option>Guaynabo</option><option>Gurabo</option><option>Hatillo</option><option>Hormigueros</option><option>Humacao</option><option>Isabela</option><option>Jayuya</option><option>Juana Díaz</option><option>Juncos</option><option>Lajas</option><option>Lares</option><option>Las Marías</option><option>Las Piedras</option><option>Loíza</option><option>Luquillo</option><option>Manatí</option><option>Maricao</option><option>Maunabo</option><option>Mayagüez</option><option>Moca</option><option>Morovis</option><option>Naguabo</option><option>Naranjito</option><option>Orocovis</option><option>Patillas</option><option>Peñuelas</option><option>Ponce</option><option>Quebradillas</option><option>Rincón</option><option>Río Grande</option><option>Sabana Grande</option><option>Salinas</option><option>San Germán</option><option>San Juan</option><option>San Lorenzo</option><option>San Sebastián</option><option>Santa Isabel</option><option>Toa Alta</option><option>Toa Baja</option><option>Trujillo Alto</option><option>Utuado</option><option>Vega Alta</option><option>Vega Baja</option><option>Vieques</option><option>Villalba</option><option>Yabucoa</option><option>Yauco</option>
+      </select>
+    </div>
+    <div class="tmpl-lw">
+      <label><span class="en">Template Language</span><span class="es">Idioma de Plantilla</span></label>
+      <div class="tlbtn-row">
+        <button class="tlbtn on" id="tlEN" onclick="setTL('en')">English</button>
+        <button class="tlbtn" id="tlES" onclick="setTL('es')">Español</button>
+      </div>
+    </div>
+  </div>
+  <div class="tmpl-out" id="tmplOut"><span style="color:#555;font-style:italic">Select your municipality above to generate your petition template / Selecciona tu municipio arriba para generar tu plantilla.</span></div>
+  <div class="tmpl-btns">
+    <button class="tmpl-btn" onclick="copyTmpl()"><span class="en">Copy Text</span><span class="es">Copiar Texto</span></button>
+    <button class="tmpl-btn" onclick="window.print()"><span class="en">Print / Save PDF</span><span class="es">Imprimir / Guardar PDF</span></button>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources" class="section">
+  <span class="sec-label"><span class="en">Sources & Documentation</span><span class="es">Fuentes y Documentación</span></span>
+  <h2 class="sec-h2"><span class="en">Everything Here<br>Is Documented</span><span class="es">Todo Aquí<br>Está Documentado</span></h2>
+  <ul class="src-list">
+    <li class="src-item"><div class="src-n">1</div><div class="src-txt">Radio Isla — DSP pondera instalar 50,000 cámaras de vigilancia para sustituir sistema de ShotSpotter<a href="https://radioisla.tv/dsp-pondera-instalar-50-mil-camaras-de-vigilancia-para-sustituir-sistema-de-shotspotter/" target="_blank">radioisla.tv ↗</a></div></li>
+    <li class="src-item"><div class="src-n">2</div><div class="src-txt">Puerto Rico Legislature — Senate Resolution R. del S. 138 (April 10, 2025) — SUTRA Legislative Search<a href="https://sutra.oslpr.org/Busqueda/Resoluciones.aspx" target="_blank">sutra.oslpr.org ↗</a></div></li>
+    <li class="src-item"><div class="src-n">3</div><div class="src-txt">Flock Safety Official Partner Page — Resilient Solutions listed as Puerto Rico partner<a href="https://flocksafety.com/partner-program" target="_blank">flocksafety.com ↗</a></div></li>
+    <li class="src-item"><div class="src-n">4</div><div class="src-txt">EFF Street Level Surveillance — Automated License Plate Readers: capabilities, data sharing, civil liberties<a href="https://www.eff.org/issues/street-level-surveillance/alpr" target="_blank">eff.org ↗</a></div></li>
+    <li class="src-item"><div class="src-n">5</div><div class="src-txt">Palantir Gotham / Flock Safety ALPR integration — search: "Palantir Gotham Flock Safety ALPR integration" via EFF / TechCrunch</div></li>
+    <li class="src-item"><div class="src-n">6</div><div class="src-txt">Puerto Rico Department of State — Corporate Registry — Resilient International PR LLC, Registration #412203</div></li>
+    <li class="src-item"><div class="src-n">7</div><div class="src-txt">Ley 141-2019 — Puerto Rico Public Information Act (Ley de Transparencia y Procedimiento Expedito para el Acceso a la Información Pública)</div></li>
+  </ul>
+</section>
+
+<footer>
+  <div class="footer-brand"><em>STOP</em> FLOCK PR</div>
+  <div class="footer-note"><span class="en">A community campaign for surveillance accountability and civil liberties in Puerto Rico. Not affiliated with any political party. Share freely.</span><span class="es">Una campaña comunitaria por la rendición de cuentas en vigilancia y las libertades civiles en Puerto Rico. Sin afiliación política. Comparte libremente.</span></div>
+  <div class="footer-hash">#StopFlockPR</div>
+</footer>
+
+<script>
+function setLang(l){document.body.classList.toggle('spanish',l==='es');document.getElementById('btnEN').classList.toggle('on',l==='en');document.getElementById('btnES').classList.toggle('on',l==='es')}
+(function(){var msgs=['50,000 CAMERAS PLANNED — NO PUBLIC VOTE','SENATE RESOLUTION R. DEL S. 138 — FILED APR 10 2025 — NO HEARING — NO VOTE — NO REPORT','YOUR LICENSE PLATE IS LOGGED EVERY TIME YOU DRIVE','FLOCK SAFETY DATA SHARED WITH ICE · FBI · CBP · PALANTIR — NO WARRANT REQUIRED','1.6 MILLION DATABASE QUERIES IN 2026 ALONE','SIGN THE PETITION — DEMAND ACCOUNTABILITY — #STOPFLOCKPR','50,000 CÁMARAS PLANEADAS — SIN VOTACIÓN PÚBLICA','TU PLACA ES REGISTRADA CADA VEZ QUE MANEJAS','DATOS COMPARTIDOS CON ICE · FBI · PALANTIR — SIN ORDEN JUDICIAL','FIRMA LA PETICIÓN · EXIGE RENDICIÓN DE CUENTAS · #STOPFLOCKPR'];var t=document.getElementById('tickerTrack');t.innerHTML=[...msgs,...msgs].map(function(m){return'<span class="ticker-item">'+m+'<span class="ticker-sep"> ◆ </span></span>'}).join('')})();
+function switchTab(t){document.querySelectorAll('.rtab').forEach(function(b){b.classList.remove('on')});document.querySelectorAll('.rform').forEach(function(f){f.classList.remove('on')});document.querySelector('.rtab.'+t).classList.add('on');document.getElementById(t+'Form').classList.add('on')}
+function submitReport(t){document.getElementById(t+'Ok').classList.add('show')}
+var sigCount=1247;
+function signPetition(){var f=document.getElementById('pfirst').value.trim(),l=document.getElementById('plast').value.trim(),e=document.getElementById('pemail').value.trim(),m=document.getElementById('pmuni').value;if(!f||!l||!e||!m){alert(document.body.classList.contains('spanish')?'Por favor completa: nombre, apellido, email y municipio.':'Please fill in: first name, last name, email, and municipality.');return}sigCount++;document.getElementById('sigCount').textContent=sigCount.toLocaleString();document.getElementById('pFormWrap').style.display='none';document.getElementById('signedState').classList.add('show')}
+function copyLink(){navigator.clipboard.writeText('https://stopflockpr.org').then(function(){alert(document.body.classList.contains('spanish')?'¡Enlace copiado!':'Link copied!')})}
+var tmplLang='en';
+function setTL(l){tmplLang=l;document.getElementById('tlEN').classList.toggle('on',l==='en');document.getElementById('tlES').classList.toggle('on',l==='es');generateTemplate()}
+function generateTemplate(){var muni=document.getElementById('tmplMuni').value,out=document.getElementById('tmplOut');if(!muni){out.innerHTML='<span style="color:#555;font-style:italic">Select your municipality / Selecciona tu municipio</span>';return}if(tmplLang==='en'){out.textContent='COMMUNITY PETITION — MUNICIPALITY OF '+muni.toUpperCase()+'\nDEMANDING SURVEILLANCE ACCOUNTABILITY AND PRIVACY PROTECTIONS\n\nTo: The Honorable Mayor and Municipal Assembly of '+muni+'\nRe: Flock Safety ALPR Camera Network and Police Surveillance Tower Deployment\n\nWe, the undersigned residents of '+muni+', Puerto Rico, call on our municipal government to take immediate action regarding the deployment of mass surveillance technology in our community.\n\nBACKGROUND\n\nThe Puerto Rico Department of Public Safety has announced plans to install up to 50,000 surveillance cameras across the island — including Flock Safety Automated License Plate Reader (ALPR) systems and high-mounted police surveillance towers. Approximately 5,000 units have already been installed without a public vote, without a published privacy impact assessment, and without meaningful community input.\n\nThese systems are not simple security cameras. Flock Safety ALPR units read every vehicle plate, log GPS location and time, build vehicle "fingerprints," perform convoy analysis, and automatically alert police — all without a warrant. Surveillance towers operate with 80x zoom, night vision, real-time facial recognition, gait tracking, and sensitive microphones — 24 hours a day. All data is shared with federal agencies including ICE, FBI, CBP, and private intelligence platforms including Palantir, without a warrant requirement.\n\nSenate Resolution R. del S. 138, filed April 10, 2025, called for a legislative investigation into this expansion and a conflict of interest involving a former DPS Secretary who now heads the exclusive Flock Safety reseller for Puerto Rico. No hearing was held. No vote was taken. No report was issued.\n\nWE DEMAND THAT THE MUNICIPALITY OF '+muni.toUpperCase()+':\n\n1. Pass a municipal resolution calling for an immediate moratorium on all new surveillance camera installations in '+muni+' pending a full public review.\n\n2. Publish all contracts, costs, and data-sharing agreements between '+muni+' and any surveillance technology vendor, including Flock Safety and Resilient International PR LLC.\n\n3. Formally support Senate Resolution R. del S. 138 and call on the Legislature to schedule hearings and complete the investigation.\n\n4. Establish a community oversight process requiring public meetings and a community vote before any new surveillance infrastructure is installed in '+muni+'.\n\n5. Adopt a municipal privacy ordinance requiring warrant-based access to any data collected from surveillance systems operating in '+muni+'.\n\nSIGNATURES\n\nName | Address | Signature | Date\n'+Array(12).fill('__________________________________ | _________________ | _________________ | _______').join('\n')+'\n\nFor more information: StopFlockPR.org | #StopFlockPR'}else{out.textContent='PETICIÓN COMUNITARIA — MUNICIPIO DE '+muni.toUpperCase()+'\nEXIGIENDO RENDICIÓN DE CUENTAS EN VIGILANCIA Y PROTECCIONES DE PRIVACIDAD\n\nA: El Honorable Alcalde y Asamblea Municipal de '+muni+'\nRe: Red de Cámaras ALPR Flock Safety y Despliegue de Torres de Vigilancia Policial\n\nNosotros, los abajo firmantes, residentes de '+muni+', Puerto Rico, instamos a nuestro gobierno municipal a tomar acción inmediata respecto al despliegue de tecnología de vigilancia masiva en nuestra comunidad.\n\nTRASFONDO\n\nEl Departamento de Seguridad Pública de Puerto Rico ha anunciado planes para instalar hasta 50,000 cámaras de vigilancia en toda la isla — incluyendo sistemas ALPR de Flock Safety y torres de vigilancia policial. Aproximadamente 5,000 unidades ya han sido instaladas sin votación pública, sin evaluación de impacto de privacidad y sin aportación comunitaria significativa.\n\nEstos sistemas no son simples cámaras de seguridad. Las unidades ALPR de Flock Safety leen cada placa, registran ubicación GPS y hora, construyen "huellas" vehiculares, realizan análisis de convoy y alertan a la policía automáticamente — sin orden judicial. Las torres de vigilancia operan con zoom 80x, visión nocturna, reconocimiento facial en tiempo real, seguimiento de marcha y micrófonos sensibles — las 24 horas. Todos los datos se comparten con agencias federales incluyendo ICE, FBI, CBP y plataformas privadas como Palantir, sin requisito de orden judicial.\n\nLa Resolución del Senado R. del S. 138, presentada el 10 de abril de 2025, solicitó una investigación legislativa sobre esta expansión y un conflicto de interés que involucra al ex Secretario de DPS que ahora dirige el revendedor exclusivo de Flock Safety. Nunca se celebró audiencia. No se tomó ningún voto. No se emitió ningún informe.\n\nEXIGIMOS QUE EL MUNICIPIO DE '+muni.toUpperCase()+':\n\n1. Apruebe una resolución municipal exigiendo una moratoria inmediata en todas las nuevas instalaciones de cámaras de vigilancia en '+muni+' hasta que se realice una revisión pública completa.\n\n2. Publique todos los contratos, costos y acuerdos de intercambio de datos entre '+muni+' y cualquier proveedor de tecnología de vigilancia, incluyendo Flock Safety y Resilient International PR LLC.\n\n3. Apoye formalmente la Resolución R. del S. 138 y exhorte a la Legislatura a programar audiencias y completar la investigación.\n\n4. Establezca un proceso de supervisión comunitaria que requiera reuniones públicas y un voto comunitario antes de instalar cualquier nueva infraestructura de vigilancia en '+muni+'.\n\n5. Adopte una ordenanza municipal de privacidad que requiera acceso basado en órdenes judiciales a cualquier dato recopilado de sistemas de vigilancia que operen en '+muni+'.\n\nFIRMAS\n\nNombre | Dirección | Firma | Fecha\n'+Array(12).fill('__________________________________ | _________________ | _________________ | _______').join('\n')+'\n\nMás información: StopFlockPR.org | #StopFlockPR'}}
+function copyTmpl(){var t=document.getElementById('tmplOut').textContent;navigator.clipboard.writeText(t).then(function(){alert(document.body.classList.contains('spanish')?'¡Texto copiado!':'Petition text copied!')})}
+</script>
+</body>
+</html>
